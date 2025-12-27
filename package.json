@@ -1,6 +1,6 @@
 {
   "name": "@frame-script/create-latest",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "FrameScript project initializer",
   "bin": {
     "create-latest": "dist/cli.js"

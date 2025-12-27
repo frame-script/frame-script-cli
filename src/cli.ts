@@ -197,9 +197,13 @@ async function fetchLatestBinaryZipUrl(): Promise<string> {
 }
 
 async function runNpmInstall(cwd: string): Promise<void> {
-  const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
+  const isWindows = process.platform === "win32";
+  const npmCmd = isWindows ? "cmd.exe" : "npm";
+  const npmArgs = isWindows
+    ? ["/d", "/s", "/c", "npm", "install"]
+    : ["install"];
   await new Promise<void>((resolve, reject) => {
-    const child = spawn(npmCmd, ["install"], { cwd, stdio: "inherit" });
+    const child = spawn(npmCmd, npmArgs, { cwd, stdio: "inherit" });
     child.on("error", reject);
     child.on("exit", (code) => {
       if (code === 0) {
